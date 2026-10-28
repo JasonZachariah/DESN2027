@@ -1,1 +1,1 @@
-alert("I FIGURED IT OU@I#@@#4T");
+alert("I FIED IT OU@I#@@#4T");
