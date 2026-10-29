@@ -1,4 +1,4 @@
-alert("Testteststst123");
+
 
 const quoteSets = [
   [
@@ -37,28 +37,14 @@ function renderQuoteList() {
   });
 }
 
-const changeQuoteButton = document.createElement("button");
-changeQuoteButton.type = "button";
-changeQuoteButton.textContent = "Change quote list";
-changeQuoteButton.style.display = "block";
-changeQuoteButton.style.margin = "1rem 0";
-changeQuoteButton.addEventListener("click", function () {
-  quoteSetIndex = (quoteSetIndex + 1) % quoteSets.length;
+ function changeQuoteList() {
   renderQuoteList();
-});
+  setInterval(() => {
+    quoteSetIndex = (quoteSetIndex + 1) % quoteSets.length;
+    renderQuoteList();
+  }, 1000);
+}
 
-renderQuoteList();
-document.body.appendChild(changeQuoteButton);
-document.body.appendChild(quoteList);
 
-document.querySelectorAll("button").forEach(function (button) {
-  const originalBackground = button.style.backgroundColor;
-
-  button.addEventListener("mouseenter", function () {
-    button.style.backgroundColor = "red";
-  });
-
-  button.addEventListener("mouseleave", function () {
-    button.style.backgroundColor = originalBackground;
-  });
-});
+changeQuoteList();
+document.getElementById("2027_p1_input").appendChild(quoteList);
