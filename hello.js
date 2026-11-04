@@ -18,9 +18,9 @@ const quoteSets = [
   
 ];
 
-const quoteList = document.createElement("ul");
+const quoteList = document.createElement("p");
 quoteList.style.color = "#111";
-quoteList.style.backgroundColor = "#000";
+
 
 quoteList.style.lineHeight = "1.6";
 quoteList.style.padding = "0.5rem 1.25rem 0.5rem 2rem";
@@ -77,6 +77,7 @@ function typeWords(item, quote, token, done) {
     if (wordIndex >= words.length) {
       setTimeout(function () {
         reverseQuote(item, token, done);
+        
       }, 500);
       return;
     }
@@ -94,7 +95,17 @@ function typeWords(item, quote, token, done) {
       const randomAngle = Math.floor(Math.random() * (15 - (-15) + 1)) + (-15);
   console.log(randomAngle);
       wordSpan.style.display = 'inline-block';
-      wordSpan.style.transform = `rotate(${randomAngle}deg)`;
+      wordSpan.animate(
+        [
+          { transform: 'scale(0.5)' }, // Small
+          { transform: 'scale(1)', rotate: `${randomAngle}deg` }  // Big
+        ],
+        {
+          duration: 400,        // Duration in milliseconds (0.4s)
+          easing: 'cubic-bezier(0.25, 0.1, 0.25, 1.0)',
+          fill: 'both'      // Keeps the final big size after animation
+        }
+      );  
 
       wordSpan.style.color = "#111";
       wordSpan.style.padding = "0 0.15rem";
@@ -102,6 +113,7 @@ function typeWords(item, quote, token, done) {
     }
 
     wordSpan.textContent += words[wordIndex][charIndex];
+    
     charIndex += 1;
 
     if (charIndex >= words[wordIndex].length) {
