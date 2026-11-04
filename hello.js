@@ -88,9 +88,9 @@ function typeWords(item, quote, token, done) {
       }
       wordSpan = document.createElement("span");
       if (quoteIndex % 2 === 0) {
-        wordSpan.style.backgroundColor = "red";
+        wordSpan.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--2027_alley_purple');
       } else {
-        wordSpan.style.backgroundColor = "blue";
+        wordSpan.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--2027_alley_pink');
       }
       const randomAngle = Math.floor(Math.random() * (15 - (-15) + 1)) + (-15);
   console.log(randomAngle);
