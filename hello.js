@@ -88,17 +88,18 @@ function typeWords(item, quote, token, done) {
       }
       wordSpan = document.createElement("span");
       if (quoteIndex % 2 === 0) {
-        wordSpan.style.backgroundColor = "";
+        wordSpan.style.backgroundColor = "yellow";
       } else {
         wordSpan.style.backgroundColor = "blue";
       }
-      const randomAngle = Math.floor(Math.random() * (15 - (-15) + 1)) + (-15);
+      const angleAmount = 30;
+      const randomAngle = Math.floor(Math.random() * (angleAmount - (-angleAmount) + 1)) + (-angleAmount);
   console.log(randomAngle);
       wordSpan.style.display = 'inline-block';
       wordSpan.animate(
         [
-          { transform: 'scale(0.5)' }, // Small
-          { transform: 'scale(1)', rotate: `${randomAngle}deg` }  // Big
+          { transform: 'scale(0.5)',rotate: `${randomAngle}deg` }, // Small
+          { transform: 'scale(1)', rotate: `0 deg` }  // Big
         ],
         {
           duration: 400,        // Duration in milliseconds (0.4s)
