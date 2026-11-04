@@ -26,20 +26,16 @@ quoteList.style.lineHeight = "1.6";
 quoteList.style.padding = "0.5rem 1.25rem 0.5rem 2rem";
 
 let typingToken = 0;
+let quoteIndex = 0;
 
 function renderQuoteList() {
   const token = ++typingToken;
   quoteList.replaceChildren();
 
-  const quotes = quoteSets.flat().filter(function (quote) {
-    return typeof quote === "string" && quote.length > 0;
-  });
+  quoteIndex = Math.floor(Math.random() * quoteSets.length);
+  const chosenQuotes = quoteSets[quoteIndex];
 
-  const chosenQuotes = quotes.map(function () {
-    return quotes[Math.floor(Math.random() * quotes.length)];
-  });
-
-  typeQuotes(chosenQuotes, 0, token);
+  typeQuotes([chosenQuotes], 0, token);
 }
 
 function typeQuotes(items, quoteIndex, token) {
@@ -57,7 +53,7 @@ function typeQuotes(items, quoteIndex, token) {
     return;
   }
 
-  const item = document.createElement("li");
+  const item = document.createElement("p");
   item.style.color = "#111";
   item.style.textAlign = "justify";
   quoteList.appendChild(item);
@@ -90,7 +86,16 @@ function typeWords(item, quote, token, done) {
         item.appendChild(document.createTextNode(" "));
       }
       wordSpan = document.createElement("span");
-      wordSpan.style.backgroundColor = "yellow";
+      if (quoteIndex % 2 === 0) {
+        wordSpan.style.backgroundColor = "red";
+      } else {
+        wordSpan.style.backgroundColor = "blue";
+      }
+      const randomAngle = Math.floor(Math.random() * (15 - (-15) + 1)) + (-15);
+  console.log(randomAngle);
+      wordSpan.style.display = 'inline-block';
+      wordSpan.style.transform = `rotate(${randomAngle}deg)`;
+
       wordSpan.style.color = "#111";
       wordSpan.style.padding = "0 0.15rem";
       item.appendChild(wordSpan);
