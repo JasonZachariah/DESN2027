@@ -22,8 +22,8 @@ const quoteList = document.createElement("p");
 
 
 
-quoteList.style.lineHeight = "1.6";
-quoteList.style.padding = "0.5rem 1.25rem 0.5rem 2rem";
+quoteList.style.lineHeight = "1.2";
+quoteList.style.padding = "0.5rem 1.rem 0.5rem 1rem";
 
 let typingToken = 0;
 let quoteIndex = 0;
