@@ -118,9 +118,9 @@ function typeWords(item, quote, token, done) {
       wordSpan.style.display = 'inline-block';
       wordSpan.animate(
         [
-          { transform: `scale(0.5) rotate(${randomAngle}deg) translateY(-2.5rem) translateX(-2.5rem)` },
-          { transform: `scale(0.5) rotate(${randomAngle}deg) translateX(0rem)` },
-          { transform: "scale(1) rotate(0deg) translateY(0rem)" }
+          { transform: `translate(-40px, -40px) scale(0.5) rotate(${randomAngle}deg)` },
+          { transform: `translate(0px, -40px) scale(0.5) rotate(${randomAngle}deg)` },
+          { transform: "translate(0px, 0px) scale(1) rotate(0deg)" }
         ],
         {
           duration: 400,        // Duration in milliseconds (0.4s)
