@@ -88,18 +88,19 @@ function typeWords(item, quote, token, done) {
       }
       wordSpan = document.createElement("span");
       if (quoteIndex % 2 === 0) {
-        wordSpan.style.backgroundColor = "yellow";
+        wordSpan.style.backgroundColor = "#E6E6E6";
       } else {
-        wordSpan.style.backgroundColor = "blue";
+        wordSpan.style.backgroundColor = "#FFFF00";
       }
-      const angleAmount = 30;
+
+      const angleAmount = 8;
       const randomAngle = Math.floor(Math.random() * (angleAmount - (-angleAmount) + 1)) + (-angleAmount);
-  console.log(randomAngle);
+  console.log(randomAngle); 
       wordSpan.style.display = 'inline-block';
       wordSpan.animate(
         [
-          { transform: 'scale(0.5)',rotate: `${randomAngle}deg` }, // Small
-          { transform: 'scale(1)', rotate: `0 deg` }  // Big
+          { transform: `scale(0.5) rotate(${randomAngle}deg) translateY(-50px)` },
+          { transform: "scale(1) rotate(0deg) translateY(0px)" }
         ],
         {
           duration: 400,        // Duration in milliseconds (0.4s)
@@ -147,7 +148,7 @@ function reverseQuote(item, token, done) {
       last.remove();
     }
 
-    setTimeout(tick, 45);
+    setTimeout(tick, 100);
   }
 
   tick();
