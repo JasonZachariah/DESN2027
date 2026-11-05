@@ -99,9 +99,9 @@ function typeWords(item, quote, token, done) {
       wordSpan.style.display = 'inline-block';
       wordSpan.animate(
         [
-          { transform: `scale(0.5) rotate(${randomAngle}deg) translateY(-50px) translateX(-50px)` },
-          { transform: `scale(0.5) rotate(${randomAngle}deg) translateX(0px)` },
-          { transform: "scale(1) rotate(0deg) translateY(0px)" }
+          { transform: `scale(0.5) rotate(${randomAngle}deg) translateY(-2.5rem) translateX(-2.5rem)` },
+          { transform: `scale(0.5) rotate(${randomAngle}deg) translateX(0rem)` },
+          { transform: "scale(1) rotate(0deg) translateY(0rem)" }
         ],
         {
           duration: 400,        // Duration in milliseconds (0.4s)
@@ -149,7 +149,7 @@ function reverseQuote(item, token, done) {
       last.remove();
     }
 
-    setTimeout(tick, 100);
+    setTimeout(tick, 45);
   }
 
   tick();
