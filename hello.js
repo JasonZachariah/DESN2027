@@ -19,7 +19,7 @@ const quoteSets = [
 ];
 
 const quoteList = document.createElement("p");
-quoteList.style.color = "#111";
+
 
 
 quoteList.style.lineHeight = "1.6";
@@ -27,15 +27,21 @@ quoteList.style.padding = "0.5rem 1.25rem 0.5rem 2rem";
 
 let typingToken = 0;
 let quoteIndex = 0;
-
+let oldQuote = -1;
 function renderQuoteList() {
   const token = ++typingToken;
   quoteList.replaceChildren();
 
   quoteIndex = Math.floor(Math.random() * quoteSets.length);
+  while (quoteIndex === oldQuote) {
+    quoteIndex = Math.floor(Math.random() * quoteSets.length);
+  }
   const chosenQuotes = quoteSets[quoteIndex];
 
   typeQuotes([chosenQuotes], 0, token);
+
+
+  oldQuote= quoteIndex;
 }
 
 function typeQuotes(items, quoteIndex, token) {
@@ -54,7 +60,7 @@ function typeQuotes(items, quoteIndex, token) {
   }
 
   const item = document.createElement("p");
-  item.style.color = "#111";
+
   item.style.textAlign = "justify";
   quoteList.appendChild(item);
 
@@ -87,11 +93,24 @@ function typeWords(item, quote, token, done) {
         item.appendChild(document.createTextNode(" "));
       }
       wordSpan = document.createElement("span");
-      if (quoteIndex % 2 === 0) {
-        wordSpan.style.backgroundColor = "#E6E6E6";
-      } else {
-        wordSpan.style.backgroundColor = "#FFFF00";
+      if (quoteIndex % 4 === 0) {
+        wordSpan.style.backgroundColor = "#ff42c8";
+        item.style.color = "#7b0045";
       }
+      else if (quoteIndex % 3 === 0) {
+        wordSpan.style.backgroundColor = "#ffe900";
+        item.style.color = "#f70";
+      }
+      else if (quoteIndex % 2 === 0) {
+        wordSpan.style.backgroundColor = "deepskyblue";
+        item.style.color = "#0e2f97";
+      }
+      else{
+        wordSpan.style.backgroundColor = "#8ff068";
+        item.style.color = "#1b714c";
+      }
+      
+      
 
       const angleAmount = 8;
       const randomAngle = Math.floor(Math.random() * (angleAmount - (-angleAmount) + 1)) + (-angleAmount);
@@ -110,7 +129,6 @@ function typeWords(item, quote, token, done) {
         }
       );  
 
-      wordSpan.style.color = "#111";
       wordSpan.style.padding = "0 0.15rem";
       item.appendChild(wordSpan);
     }
