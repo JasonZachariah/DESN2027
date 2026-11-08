@@ -123,7 +123,7 @@ function typeWords(item, quote, stream, token, done) {
       setTimeout(function () {
         reverseQuote(item, token, done);
         
-      }, 500);
+      }, 1500);
       return;
     }
 
@@ -185,6 +185,7 @@ function typeWords(item, quote, stream, token, done) {
   }
 
   tick();
+  console.log("tick started");
 }
 
 function reverseQuote(item, token, done) {
@@ -210,6 +211,7 @@ function reverseQuote(item, token, done) {
   }
 
   tick();
+  console.log("reverseQuote started");
 }
 
 function changeQuoteList() {
