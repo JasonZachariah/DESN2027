@@ -1,20 +1,53 @@
 
 
+const SUPABASE_URL = "https://xtjhtiygsdfuwsstgter.supabase.co";
+const SUPABASE_KEY = "sb_publishable_BDkOPpb5mDfpIhMrTujHvw_0XD5JXtq";
+const SUPABASE_TABLE = "live_quotes";
+
+async function loadQuoteSetsFromApiTest() {
+  if (typeof supabase === "undefined") {
+    return;
+  }
+
+  const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  const { data, error } = await client.from(SUPABASE_TABLE).select("quote,name,stream");
+  
+
+  if (error || !data) {
+    return;
+  }
+
+  const quotes = data
+    .map(function (row) {
+      const text = typeof row.quote === "string" ? row.quote.trim() : "";
+      const name = typeof row.name === "string" ? row.name.trim() : "";
+      const stream = typeof row.stream === "string" ? row.stream.trim() : "";
+      if (!text) {
+        return null;
+      }
+      return {
+        text: name ? text + " - " + name : text,
+        stream: stream
+      };
+    })
+    .filter(function (quote) {
+      return quote;
+    });
+
+  if (!quotes.length) {
+    return;
+  }
+
+  quoteSets.splice(0, quoteSets.length);
+  quotes.forEach(function (quote) {
+    quoteSets.push(quote);
+  });
+
+}
+
 const quoteSets = [
   
-    "The only way to do great work is to love what you do.",
-    "Stay hungry, stay foolish.",
-    "Simplicity is the ultimate sophistication.",
   
- 
-    "Design is how it works.",
-    "Less, but better.",
-    "Make it simple, but significant.",
-  
-  
-    "Creativity is intelligence having fun.",
-    "Every great design begins with an even better story.",
-    "Have the courage to be simple.",
   
 ];
 
@@ -32,9 +65,15 @@ function renderQuoteList() {
   const token = ++typingToken;
   quoteList.replaceChildren();
 
+  if (!quoteSets.length) {
+    return;
+  }
+
   quoteIndex = Math.floor(Math.random() * quoteSets.length);
-  while (quoteIndex === oldQuote) {
-    quoteIndex = Math.floor(Math.random() * quoteSets.length);
+  if (quoteSets.length > 1) {
+    while (quoteIndex === oldQuote) {
+      quoteIndex = Math.floor(Math.random() * quoteSets.length);
+    }
   }
   const chosenQuotes = quoteSets[quoteIndex];
 
@@ -64,12 +103,12 @@ function typeQuotes(items, quoteIndex, token) {
   item.style.textAlign = "justify";
   quoteList.appendChild(item);
 
-  typeWords(item, items[quoteIndex], token, function () {
+  typeWords(item, items[quoteIndex].text, items[quoteIndex].stream, token, function () {
     typeQuotes(items, quoteIndex + 1, token);
   });
 }
 
-function typeWords(item, quote, token, done) {
+function typeWords(item, quote, stream, token, done) {
   const words = quote.split(" ");
   let wordIndex = 0;
   let charIndex = 0;
@@ -93,15 +132,15 @@ function typeWords(item, quote, token, done) {
         item.appendChild(document.createTextNode(" "));
       }
       wordSpan = document.createElement("span");
-      if (quoteIndex % 4 === 0) {
+      if (stream === "The Townsquare") {
         wordSpan.style.backgroundColor = "#ff42c8";
         item.style.color = "#7b0045";
       }
-      else if (quoteIndex % 3 === 0) {
+      else if (stream === "The Garden") {
         wordSpan.style.backgroundColor = "#ffe900";
         item.style.color = "#f70";
       }
-      else if (quoteIndex % 2 === 0) {
+      else if (stream === "The Alley") {
         wordSpan.style.backgroundColor = "deepskyblue";
         item.style.color = "#0e2f97";
       }
@@ -177,7 +216,7 @@ function changeQuoteList() {
   renderQuoteList();
 }
 
-
-changeQuoteList();
-document.getElementById("2027_p1_input").appendChild(quoteList);
-changeQuoteList();
+loadQuoteSetsFromApiTest().then(function () {
+  document.getElementById("2027_p1_input").appendChild(quoteList);
+  changeQuoteList();
+});
