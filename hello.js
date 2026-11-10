@@ -140,7 +140,7 @@ function typeWords(item, quote, stream, token, done) {
         wordSpan.style.backgroundColor = "#ffe900";
         item.style.color = "#f70";
       }
-      else if (stream === "The Alley") {
+      else if (stream === "The Library") {
         wordSpan.style.backgroundColor = "deepskyblue";
         item.style.color = "#0e2f97";
       }
