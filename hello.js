@@ -137,6 +137,8 @@ function typeWords(item, quote, stream, token, done) {
         item.style.color = "#7b0045";
       }
       else if (stream === "The Garden") {
+        wordSpan.style.backgroundColor = "#8ff068";
+        item.style.color = "#1b714c";
         wordSpan.style.backgroundColor = "#ffe900";
         item.style.color = "#f70";
       }
@@ -145,8 +147,8 @@ function typeWords(item, quote, stream, token, done) {
         item.style.color = "#0e2f97";
       }
       else{
-        wordSpan.style.backgroundColor = "#8ff068";
-        item.style.color = "#1b714c";
+        wordSpan.style.backgroundColor = "#ffe900";
+        item.style.color = "#f70";
       }
       
       
