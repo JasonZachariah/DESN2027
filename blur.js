@@ -1,5 +1,5 @@
-const BLUR = "1px";
 const THRESHOLD = "0 1 1";
+const BLUR_CYCLE_MS = 5000;
 
 function ensureThresholdFilter() {
   let filter = document.getElementById("svgThreshold");
@@ -32,7 +32,14 @@ function ensureThresholdFilter() {
 function applyBlurEffect() {
   ensureThresholdFilter();
   document.querySelectorAll(".p1_2027_blur").forEach(function (element) {
-    element.style.filter = "blur(" + BLUR + ") url(#svgThreshold)";
+    element.animate(
+      [
+        { filter: "blur(0.5px) url(#svgThreshold)", easing: "ease-in-out" },
+        { filter: "blur(2px) url(#svgThreshold)", offset: 0.5, easing: "ease-in-out" },
+        { filter: "blur(0.5px) url(#svgThreshold)" }
+      ],
+      { duration: BLUR_CYCLE_MS, iterations: Infinity }
+    );
   });
 }
 
