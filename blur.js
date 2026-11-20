@@ -1,7 +1,7 @@
 const THRESHOLD = "0 1 1";
 const BLUR_CYCLE_MS = 5000;
-const BLUR_MIN = 0.5;
-const BLUR_MAX = 2;
+const BLUR_MIN = 0.03125;
+const BLUR_MAX = 0.125;
 
 function ensureThresholdFilter() {
   let filter = document.getElementById("svgThreshold");
@@ -41,7 +41,7 @@ function applyBlurEffect() {
   ensureThresholdFilter();
 
   function frame(now) {
-    const filter = "blur(" + blurAt(now).toFixed(3) + "px) url(#svgThreshold)";
+    const filter = "blur(" + blurAt(now).toFixed(4) + "em) url(#svgThreshold)";
     document.querySelectorAll(".p1_2027_blur").forEach(function (element) {
       element.style.filter = filter;
     });
