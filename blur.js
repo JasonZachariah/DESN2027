@@ -1,5 +1,7 @@
 const THRESHOLD = "0 1 1";
 const BLUR_CYCLE_MS = 5000;
+const BLUR_MIN = 0.5;
+const BLUR_MAX = 2;
 
 function ensureThresholdFilter() {
   let filter = document.getElementById("svgThreshold");
@@ -29,18 +31,24 @@ function ensureThresholdFilter() {
   });
 }
 
+function blurAt(now) {
+  const progress = (now % BLUR_CYCLE_MS) / BLUR_CYCLE_MS;
+  const wave = Math.sin(progress * Math.PI);
+  return BLUR_MIN + (BLUR_MAX - BLUR_MIN) * wave;
+}
+
 function applyBlurEffect() {
   ensureThresholdFilter();
-  document.querySelectorAll(".p1_2027_blur").forEach(function (element) {
-    element.animate(
-      [
-        { filter: "blur(0.5px) url(#svgThreshold)", easing: "ease-in-out" },
-        { filter: "blur(2px) url(#svgThreshold)", offset: 0.5, easing: "ease-in-out" },
-        { filter: "blur(0.5px) url(#svgThreshold)" }
-      ],
-      { duration: BLUR_CYCLE_MS, iterations: Infinity }
-    );
-  });
+
+  function frame(now) {
+    const filter = "blur(" + blurAt(now).toFixed(3) + "px) url(#svgThreshold)";
+    document.querySelectorAll(".p1_2027_blur").forEach(function (element) {
+      element.style.filter = filter;
+    });
+    requestAnimationFrame(frame);
+  }
+
+  requestAnimationFrame(frame);
 }
 
 if (document.readyState === "loading") {
