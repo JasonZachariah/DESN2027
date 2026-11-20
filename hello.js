@@ -119,6 +119,8 @@ function typeWords(item, quote, stream, token, done) {
       return;
     }
 
+
+
     if (wordIndex >= words.length) {
       setTimeout(function () {
         reverseQuote(item, token, done);
@@ -132,6 +134,7 @@ function typeWords(item, quote, stream, token, done) {
         item.appendChild(document.createTextNode(" "));
       }
       wordSpan = document.createElement("span");
+
       if (stream === "The Townsquare") {
         wordSpan.style.backgroundColor = "#ff42c8";
         item.style.color = "#7b0045";
