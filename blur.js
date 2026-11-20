@@ -33,9 +33,15 @@ function ensureThresholdFilter() {
 
 function blurAt(now) {
   const progress = (now % BLUR_CYCLE_MS) / BLUR_CYCLE_MS;
-  const wave = Math.sin(progress * Math.PI);
+  const wave = clamp(Math.sin(progress * Math.PI * 2), 0, 1, 0.2,0.5);
+  console.log(progress, wave);
   return BLUR_MIN + (BLUR_MAX - BLUR_MIN) * wave;
 }
+
+function clamp(value, min, max, minOut, maxOut) {
+  return minOut + (maxOut - minOut) * (value - min) / (max - min);
+}
+
 
 function applyBlurEffect() {
   ensureThresholdFilter();
